@@ -1,0 +1,10 @@
+{
+  "title": "NATO in Global Context",
+  "content": "<h3>Power comparison charts: NATO vs Russia vs China.</h3><p>This chart compares the total active military personnel of NATO's top members against other global powers, based on 2024 data.</p><div id='personnelChartContainer' class='vis-wrapper' style='width:100%; height:450px;'></div>",
+  "charts": [
+    {
+      "targetId": "personnelChartContainer",
+      "specUrl": "nato_personnel_chart.json"
+    }
+  ]
+}

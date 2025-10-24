@@ -1,0 +1,214 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 680,
+  "padding": 0,
+  "autosize": { "type": "fit", "contains": "padding" },
+  "background": null,
+  "params": [
+    {
+      "name": "year_slider",
+      "value": 1949,
+      "bind": {
+        "input": "range",
+        "min": 1949,
+        "max": 2024,
+        "step": 1,
+        "name": "Year: "
+      }
+    },
+    { "name": "show_founders", "value": false },
+    { "name": "hover_country", "value": "" }
+  ],
+  "layer": [
+    {
+      "data": { "sphere": true },
+      "mark": { "type": "geoshape", "fill": "#dff3fb", "stroke": null },
+      "projection": {
+        "type": "equalEarth",
+        "scale": 300,
+        "center": [-120, 50],
+        "translate": [100, 200]
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json",
+        "format": { "type": "topojson", "feature": "countries" }
+      },
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": { "url": "NATO.csv" },
+            "key": "Country",
+            "fields": ["Year joined"]
+          }
+        },
+        {
+          "calculate": "datum['Year joined'] != null ? ('' + datum['Year joined']) : 'Not a NATO member'",
+          "as": "yearJoinedText"
+        }
+      ],
+      "mark": { "type": "geoshape", "stroke": "#777", "strokeWidth": 0.35 },
+      "projection": {
+        "type": "equalEarth",
+        "scale": 420,
+        "center": [-120, 50],
+        "translate": [100, 200]
+      },
+      "encoding": {
+        "color": {
+          "condition": [
+            {
+              "test": "datum['Year joined'] != null && datum['Year joined'] <= year_slider",
+              "value": "#1f77b4"
+            }
+          ],
+          "value": "#e9edf1"
+        },
+        "tooltip": [
+          { "field": "properties.name", "type": "nominal", "title": "Country" },
+          {
+            "field": "yearJoinedText",
+            "type": "nominal",
+            "title": "Year joined (NATO)"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json",
+        "format": { "type": "topojson", "feature": "countries" }
+      },
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": { "url": "NATO.csv" },
+            "key": "Country",
+            "fields": ["Year joined"]
+          }
+        },
+        {
+          "calculate": "datum['Year joined'] != null ? ('' + datum['Year joined']) : 'Not a NATO member'",
+          "as": "yearJoinedText"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "transparent",
+        "stroke": "#000000",
+        "strokeWidth": 3
+      },
+      "projection": {
+        "type": "equalEarth",
+        "scale": 420,
+        "center": [-120, 50],
+        "translate": [100, 200]
+      },
+      "encoding": {
+        "opacity": {
+          "condition": [
+            { "test": "show_founders && datum['Year joined'] == 1949", "value": 1 }
+          ],
+          "value": 0
+        },
+        "tooltip": [
+          { "field": "properties.name", "type": "nominal", "title": "Country" },
+          {
+            "field": "yearJoinedText",
+            "type": "nominal",
+            "title": "Year joined (NATO)"
+          }
+        ]
+      }
+    },
+    {
+      "data": { "graticule": { "step": [30, 30] } },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#bcdbe6",
+        "strokeWidth": 0.6,
+        "opacity": 0.7
+      },
+      "projection": {
+        "type": "equalEarth",
+        "scale": 420,
+        "center": [-120, 50],
+        "translate": [100, 200]
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json",
+        "format": { "type": "topojson", "feature": "countries" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#555",
+        "strokeWidth": 0.25
+      },
+      "projection": {
+        "type": "equalEarth",
+        "scale": 420,
+        "center": [-120, 50],
+        "translate": [100, 200]
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json",
+        "format": { "type": "topojson", "feature": "countries" }
+      },
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": { "url": "NATO.csv" },
+            "key": "Country",
+            "fields": ["Year joined"]
+          }
+        },
+        {
+          "calculate": "datum['Year joined'] != null ? ('' + datum['Year joined']) : 'Not a NATO member'",
+          "as": "yearJoinedText"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "transparent",
+        "stroke": "#ffb74d",
+        "strokeWidth": 2
+      },
+      "projection": {
+        "type": "equalEarth",
+        "scale": 420,
+        "center": [-120, 50],
+        "translate": [100, 200]
+      },
+      "encoding": {
+        "opacity": {
+          "condition": [
+            {
+              "test": "hover_country && datum.properties && datum.properties.name == hover_country",
+              "value": 1
+            }
+          ],
+          "value": 0
+        },
+        "tooltip": [
+          { "field": "properties.name", "type": "nominal", "title": "Country" },
+          {
+            "field": "yearJoinedText",
+            "type": "nominal",
+            "title": "Year joined (NATO)"
+          }
+        ]
+      }
+    }
+  ]
+}

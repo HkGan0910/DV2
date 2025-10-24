@@ -1,0 +1,41 @@
+{
+  "content": [
+    {
+      "type": "block",
+      "title": "A Political & Military Alliance",
+      "icon": "🏛️",
+      "text": "NATO's essential purpose is to safeguard the freedom and security of all its members by political and military means."
+    },
+    {
+      "type": "block",
+      "title": "Collective Defence (Article 5)",
+      "icon": "🛡️",
+      "emphasis": true,
+      "text": "NATO is committed to the principle that an attack against one or more of its members is considered an attack against all. This is the core of the Alliance."
+    },
+    {
+      "type": "block",
+      "title": "Crisis Management",
+      "icon": "🕊️",
+      "text": "NATO has the military capabilities and political will to help manage crises affecting Alliance security, both within and beyond its borders."
+    },
+    {
+      "type": "block",
+      "title": "Cooperative Security",
+      "icon": "🤝",
+      "text": "NATO works with partner countries and international organisations to promote security, tackle shared challenges, and build stability."
+    },
+    {
+      "type": "block",
+      "title": "Political Consultation",
+      "icon": "💬",
+      "text": "The North Atlantic Council (NAC) is the principal political decision-making body, where Allies discuss issues and make decisions by consensus."
+    },
+    {
+      "type": "block",
+      "title": "Military Structure",
+      "icon": "⭐",
+      "text": "NATO has an integrated military command structure, advised by the Military Committee, to implement political decisions with military implications."
+    }
+  ]
+}

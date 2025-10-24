@@ -1,0 +1,38 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "NATO Military Personnel (Top 10 & Average of Others)",
+    "subtitle": {"expr": "'Year: ' + commit_year"}, 
+    "anchor": "start"
+  },
+  "padding": {"left": 200, "top": 10, "right": 50, "bottom": 30},
+  "width": "container",
+  "height": 350,
+  "data": {
+    "url": "NatoMilitaryPersonnel.csv"
+  },
+  "params": [
+    {"name": "commit_year", "value": 2014} 
+  ],
+  "transform": [
+    {"filter": "!test(/NATO/i, datum.Country)"},
+    {"fold": ["2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"], "as": ["Year_String", "Personnel_Thousands"]},
+    {"calculate": "toNumber(datum.Year_String)", "as": "Year"},
+    {"calculate": "toNumber(datum.Personnel_Thousands)", "as": "Personnel"},
+    {"filter": "datum.Year == commit_year"}, 
+    {"filter": "isValid(datum.Personnel) && isFinite(datum.Personnel)"},
+    {"window": [{"op": "rank", "as": "rank"}], "sort": [{"field": "Personnel", "order": "descending"}]},
+    {"calculate": "datum.rank <= 10 ? datum.Country : 'Avg. Others'", "as": "Display_Group"},
+    {"aggregate": [{"op": "sum", "field": "Personnel", "as": "Value_Sum"},{"op": "average", "field": "Personnel", "as": "Value_Avg"}], "groupby": ["Display_Group"]},
+    {"calculate": "datum.Display_Group == 'Avg. Others' ? datum.Value_Avg : datum.Value_Sum", "as": "Value"},
+    {"calculate": "datum.Display_Group == 'Avg. Others' ? 1 : 0", "as": "is_others"},
+    {"window": [{"op": "rank", "as": "final_rank"}], "sort": [{"field": "Value", "order": "descending"}], "frame": [null, null], "ignorePeers": false, "filter": "datum.Display_Group != 'Avg. Others'"},
+    {"calculate": "datum.Display_Group == 'Avg. Others' ? null : datum.final_rank", "as": "final_rank_display"}
+ ],
+  "layer": [
+    {"mark": {"type": "bar", "height": {"band": 0.8}}, "encoding": {"x": {"field": "Value", "type": "quantitative", "title": "Personnel (in thousands)", "axis": {"gridColor": "#e0e0e0", "offset": 5, "domain": false, "ticks": false, "labelPadding": 5, "titlePadding": 10}}, "y": {"field": "Display_Group", "type": "nominal", "sort": {"field": ["is_others", "Value"], "order": ["ascending", "descending"]}, "axis": null}, "tooltip": [{"field": "Display_Group", "type": "nominal", "title": "Country / Group"},{"condition": {"test": "datum.Display_Group != 'Avg. Others'", "field": "final_rank_display", "type": "ordinal", "title": "Rank"}, "value": null},{"field": "Value", "type": "quantitative", "title": "Personnel (thousands)", "format": ".1f"}]}},
+    {"mark": {"type": "text", "align": "right", "baseline": "middle", "fontWeight": "bold", "limit": 190}, "transform": [{"calculate": "datum.final_rank_display == null ? datum.Display_Group : datum.final_rank_display + '. ' + datum.Display_Group", "as": "display_label_with_rank"}], "encoding": {"text": {"field": "display_label_with_rank", "type": "nominal"}, "x": {"value": 0}, "y": {"field": "Display_Group", "type": "nominal", "sort": {"field": ["is_others", "Value"], "order": ["ascending", "descending"]}}, "color": {"value": "#111"}, "tooltip": null}},
+    {"mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 5, "fontSize": 11}, "encoding": {"text": {"field": "Value", "type": "quantitative", "format": ",.1f"}, "x": {"field": "Value", "type": "quantitative"}, "y": {"field": "Display_Group", "type": "nominal", "sort": {"field": ["is_others", "Value"], "order": ["ascending", "descending"]}}, "color": {"value": "#444"}, "tooltip": null}}
+  ],
+  "config": {"view": {"stroke": "transparent"}, "axisX": {"gridColor": "#e0e0e0", "tickColor": "#ccc", "domain": false, "labelPadding": 5, "titlePadding": 10}, "text": {"baseline": "middle"}, "title": {"anchor": "start", "subtitlePadding": 5}}
+}

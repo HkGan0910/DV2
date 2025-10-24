@@ -1,0 +1,324 @@
+/* --- General Page Styles --- */
+body {
+  font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #f4f6f8;
+  line-height: 1.5;
+}
+
+h1, h2, h3 { color: #083a57; }
+h2 { border-bottom: 2px solid #e3edf4; padding-bottom: 10px; margin-bottom: 15px; font-size: 1.6em;}
+h3 { margin-top: 20px; margin-bottom: 10px; font-size: 1.2em; color: #1a4a6e; }
+
+hr.section-divider { border: none; height: 1px; background-color: #d8e2e8; max-width: 1050px; margin: 40px auto; }
+
+/* --- Header --- */
+.page-header {
+  background-color: #0b3b50;
+  color: #fff;
+  padding: 28px 30px;
+  margin-bottom: 30px;
+  /* keep a clear vertical rhythm for title + subtitle */
+}
+.page-header .title-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 6px 0;
+  line-height: 1;
+}
+/* make title noticeably larger */
+.page-header .title-row .title-text {
+  font-size: 2.8rem; /* larger title */
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* subtitle styling */
+.page-header .subtitle {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #cce4f2;
+}
+
+/* PNG logo will match the title height by using em sizing */
+.nato-logo-title {
+  /* larger logo: scales with title but visibly bigger */
+  height: 2.4em;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.16);
+  background: #fff; /* optional slight background to help visibility if PNG has transparency */
+  padding: 8px;
+}
+
+/* hide the inline SVG badge only where it's inside the header title row (keeps other uses intact) */
+.page-header .nato-badge svg { display: none; }
+
+/* responsive tweak: reduce title on small screens and scale logo */
+@media (max-width: 700px) {
+  .page-header .title-row .title-text { font-size: 1.6rem; }
+  /* scale down but still larger than before */
+  .nato-logo-title { height: 1.8em; padding: 6px; }
+}
+
+/* --- Sections --- */
+.content-section, .chart-section {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 25px 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+.chart-section p { font-size: 1em; color: #555; margin-bottom: 15px; max-width: 800px; }
+
+/* --- Controls Styling --- */
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-bottom: 20px; padding: 12px 15px; background-color: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef; }
+.controls label { font-weight: 600; color: #343a40; margin-right: 5px; white-space: nowrap; }
+.controls input[type="range"] { flex-grow: 1; min-width: 150px; max-width: 400px; cursor: pointer; height: 8px; }
+.controls button { padding: 6px 14px; border-radius: 4px; border: 1px solid #ced4da; background:#fff; cursor:pointer; font-weight: 500; font-size: 0.95em; }
+
+/* Commitment Specific Controls */
+.sub-nav { display: flex; gap: 8px; margin-right: 15px; }
+.sub-view-btn { padding: 6px 12px; border-radius: 4px; background: #f0f3f5; border: 1px solid #d4dde3; cursor: pointer; font-weight: 600; color: #345a6a; font-size: 0.95em; }
+.sub-view-btn.active { background: #e3f2fd; color: #0b6fb4; border-color: #bbdefb; font-weight: 700; }
+
+/* --- Visualization Containers --- */
+.vis-container, .vis-container-map, .vis-container-commitment, .vis-container-comparison, .vis-container-comparison-static { width: 100%; margin-bottom: 15px; border: 1px solid #e9ecef; border-radius: 6px; overflow: hidden; background-color: #fff; }
+.vis-container-map { height: 500px; }
+.vis-container-commitment { height: 450px; }
+.vis-container-comparison { height: 250px; }
+.vis-container-comparison-static { height: auto; min-height: 150px; }
+
+/* Nuclear comparison callout */
+.nuclear-callout {
+  background: linear-gradient(180deg, rgba(255,245,235,0.95), rgba(255,250,240,0.98));
+  border-left: 6px solid #d9534f;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+.nuclear-title {
+  margin: 0 0 6px 0;
+  font-size: 1.15em;
+  color: #7a1400;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nuclear-subtitle {
+  margin: 0 0 12px 0;
+  color: #5a3b2a;
+  font-size: 0.95em;
+}
+
+/* larger, more prominent chart area for nuclear comparison */
+.vis-container-comparison-static.nuclear-vis {
+  min-height: 260px;
+  padding: 14px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(8,18,30,0.08);
+  border: 1px solid rgba(217,83,79,0.06);
+}
+
+/* --- Layout Specifics --- */
+/* History/Founding Section */
+.purpose-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 15px; }
+.purpose-block { background-color: #f8fafd; padding: 18px; border-radius: 6px; border: 1px solid #e3edf4; }
+.purpose-block h3 { margin: 0 0 10px 0; font-size: 1.1em; color: #0b6fb4; display: flex; align-items: center; gap: 8px; }
+.purpose-block p { font-size: 0.95em; color: #345a6a; margin: 0; line-height: 1.5; }
+.purpose-block .icon { font-size: 1.5em; color: #0b6fb4; }
+.article5-emphasis { background-color: #fff8e1; border-color: #ffe0b2; color: #7a4b00; }
+.article5-emphasis h3 { color: #b58000; }
+.article5-emphasis .icon { color: #b58000; }
+.article5-emphasis p { color: #6f4e00; font-weight: 500; }
+.nato-badge.small svg { width: 24px; height: 24px; display: inline-block; vertical-align: middle; }
+.nato-badge.small svg .fill { fill:#0b6fb4; }
+.nato-badge.small svg .stroke { stroke:#083a57; }
+
+/* Growth Section Layout */
+.growth-layout { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+.vis-container-map { flex: 3 1 600px; min-width: 450px; }
+.growth-sidebar { flex: 1 1 280px; min-width: 250px; display: flex; flex-direction: column; gap: 15px; }
+.member-list-growth { max-height: 400px; overflow-y: auto; border: 1px solid #e9ecef; border-radius: 6px; padding: 10px; background-color: #fdfdfd; }
+
+/* Commitment Section Layout */
+.commitment-layout {
+  display: flex;
+  gap: 20px;
+  /* make children stretch to same height so sidebar matches left stack */
+  align-items: stretch;
+}
+.commitment-left {
+  flex: 3 1 600px;
+  min-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* let the left column grow taller if container allows */
+  align-self: stretch;
+}
+.vis-container-commitment-map {
+  /* larger, flexible map area */
+  flex: 2 1 420px;
+  min-height: 360px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.vis-container-commitment-chart {
+  /* personnel bar chart under the map: flexible but smaller than the map */
+  flex: 1 1 220px;
+  min-height: 200px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.commitment-sidebar {
+  flex: 1 1 320px;
+  min-width: 280px;
+  max-height: 650px;
+  overflow-y: auto;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 10px;
+  background-color: #fdfdfd;
+}
+
+/* Responsive: stack on small screens so charts remain usable */
+@media (max-width: 900px) {
+  .commitment-layout { flex-direction: column; }
+  .commitment-left, .commitment-sidebar { min-width: auto; width: 100%; }
+  .vis-container-commitment-map { min-height: 320px; }
+  .vis-container-commitment-chart { min-height: 180px; }
+}
+
+/* Comparison Section Layout */
+.comparison-item { margin-bottom: 30px; }
+
+/* Side-by-side comparison layout for Land / Air / Navy charts */
+.comparison-personnel-layout {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  align-items: stretch;
+}
+.comparison-personnel-layout > .vis-container-comparison {
+  flex: 1 1 0;
+  min-width: 220px;
+  height: 220px; /* consistent height for each small comparison chart */
+}
+
+/* Responsive: stack vertically on narrow screens */
+@media (max-width: 900px) {
+  .comparison-personnel-layout { flex-direction: column; }
+  .comparison-personnel-layout > .vis-container-comparison { width: 100%; }
+}
+
+/* Grid layout for comparison charts */
+.comparison-grid {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+.comparison-grid .vis-container-comparison {
+  flex: 1 1 0;
+  min-width: 320px;
+  /* allow domain panels to expand to fit all metric cards (no internal clipping) */
+  height: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(8,18,30,0.04);
+  padding: 6px;
+}
+
+/* stack on small screens */
+@media (max-width: 900px) {
+  .comparison-grid { flex-direction: column; }
+  .comparison-grid .vis-container-comparison { width: 100%; min-width: auto; }
+}
+
+/* Summary row for NATO vs Russia totals (compact cards) */
+.comparison-summary-grid {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  align-items: stretch;
+}
+.comparison-summary-grid .vis-container-comparison {
+  flex: 1 1 0;
+  min-width: 180px;
+  height: 120px;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 6px 16px rgba(8,18,30,0.04);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+/* Grid of per-metric small charts inside each domain card */
+.comparison-metrics-grid {
+  display: flex;
+  flex-direction: column; /* stack metric cards vertically (one by one) */
+  gap: 12px;
+  margin-top: 8px;
+  /* allow grid to grow with its content so domain panel expands instead of scrolling */
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+}
+.comparison-metric-card {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  min-height: 200px; /* a bit taller so the embedded chart has comfortable space */
+  padding: 10px 8px;
+  box-shadow: 0 6px 16px rgba(8,18,30,0.04);
+  overflow: visible;
+  width: 100%;
+}
+
+/* --- Annotations & Milestones --- */
+.chart-annotation, .chart-milestone { margin-top: 15px; padding: 12px 18px; border-radius: 6px; font-size: 14px; line-height: 1.45; text-align: left; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.chart-annotation { background: #fff8e1; border: 1px solid #ffe0b2; color: #7a4b00; }
+.chart-annotation strong { display: block; margin-bottom: 5px; color: #6f4e00; font-size: 1.05em; }
+.chart-milestone { background: #e3f2fd; border: 1px solid #bbdefb; color: #0d47a1; font-weight: 600; }
+
+/* --- Footer --- */
+.page-footer { text-align: center; margin: 40px auto 20px auto; padding: 15px; font-size: 0.9em; color: #667; max-width: 900px; }
+.page-footer strong { color: #445; }
+
+/* --- Vega Tooltip --- */
+.vg-tooltip { z-index: 1100 !important; }
+
+/* --- Member List Styling (Shared Base) --- */
+.member-list, .member-list-growth { /* Base styles if needed */ }
+.member-item { display:flex; justify-content:space-between; gap:10px; padding:8px 6px; cursor:pointer; align-items:center; border-bottom:1px solid #f1f7fb; color:#083a57; }
+.member-item:hover { background:#eef8ff; }
+.member-item .label { display:flex; gap:8px; align-items:center; font-size:14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.member-item .flag { font-size:16px; line-height:1; }
+.member-item .rank { width:30px; flex:0 0 30px; text-align:center; font-weight:900; color:#083a57; background:linear-gradient(180deg,#ffffff,#f5fbff); border-radius:6px; padding:4px 0; margin-right:6px; box-shadow:0 2px 6px rgba(8,20,30,0.03); font-size: 13px; }
+.member-item .row-left { display:flex; align-items:center; gap:6px; min-width: 0; }
+.member-item .value { font-weight:700; color:#083a57; font-size: 13px; white-space: nowrap; margin-left: auto; }
+.member-item .join-year { color:#345a6a; font-weight:700; font-size:13px; min-width:56px; text-align:right; white-space: nowrap; margin-left: auto; }
+
+/* Threshold Divider */
+.threshold-divider { display:flex; align-items:center; justify-content:center; gap:8px; margin:8px 0; padding:6px 8px; border-top:2px dashed #cfeaf7; color:#345a6a; font-weight:700; border-radius:4px; background:linear-gradient(180deg,#fbfdff,#ffffff); font-size: 12px; }
+.threshold-divider span { background:#fff; padding:3px 6px; border-radius:6px; color:#0b6fb4; border:1px solid #e3f7ff; }

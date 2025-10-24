@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NATO: Story & Comparison (Interactive)</title>
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%230b6fb4'/><g transform='translate(32,32)'><path d='M0,-20 L4,-4 L20,0 L4,4 L0,20 L-4,4 L-20,0 L-4,-4 Z' fill='white'/></g></svg>">
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="page-header">
+    <h1 class="title-row">
+      <img src="NATO.png" alt="NATO emblem" class="nato-logo-title" />
+      <span class="title-text">NATO: Growth, Commitment & Global Context</span>
+    </h1>
+    <p class="subtitle">An interactive exploration of the alliance and its comparison with Russia.</p>
+  </header>
+
+  <section id="foundingPurposeSection" class="content-section">
+      <h2 style="display: flex; align-items: center; gap: 10px;">
+          <span class="nato-badge small" role="img" aria-label="NATO emblem">
+             <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="30" class="stroke" fill="#fff"/><g transform="translate(32,32)"><path class="fill" d="M0,-20 L4,-4 L20,0 L4,4 L0,20 L-4,4 L-20,0 L-4,-4 Z"></path><circle r="3" class="stroke" fill="#fff"/></g></svg>
+          </span>
+          What is NATO?
+      </h2>
+          <div id="historyContent" class="purpose-layout"></div>
+  </section>
+
+
+  <hr class="section-divider">
+
+  <section id="growthSection" class="chart-section">
+    <h2>Alliance Growth Over Time (1949-2024)</h2>
+    <p>Watch NATO expand from its founding members. Use the slider or Play button.</p>
+    <div class="controls growth-controls">
+        <button id="playPauseGrowth">Play</button>
+        <label>Year: <span id="growthYearLabel">1949</span></label>
+        <input id="growthYearSlider" type="range" min="1949" max="2024" value="1949" step="1" />
+        <button id="toggleFounders" aria-pressed="false">Show Founders</button>
+    </div>
+    <div class="growth-layout">
+        <div id="growthVis" class="vis-container-map"></div>
+        <div class="growth-sidebar">
+             <div id="milestoneText" class="chart-milestone">Loading milestone...</div>
+             <div id="memberListGrowth" class="member-list-growth">Loading member list...</div>
+        </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <section id="commitmentSection" class="chart-section">
+    <h2>Member Commitment (2014-2024)</h2>
+    <p>Explore individual member contributions. Select a metric and use the slider.</p>
+    <div class="controls commitment-controls">
+         <label>Year: <span id="commitYearLabel">2014</span></label>
+         <input id="commitYearSlider" type="range" min="2014" max="2024" value="2014" step="1" />
+    </div>
+    <div class="commitment-layout">
+        <div class="commitment-left">
+            <div id="commitmentVis" class="vis-container-commitment-map"></div>
+            <div id="commitmentPersonnelVis" class="vis-container-commitment-chart"></div>
+        </div>
+        <div id="commitmentSidebar" class="commitment-sidebar">Loading list...</div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <section id="comparisonSection" class="chart-section">
+    <h2>NATO vs Russia Comparison</h2>
+    <p>Comparing estimated strengths across key metrics. Use sliders where available.</p>
+
+    <div class="comparison-item">
+      <h3>Military Strength by Domain — NATO vs Russia</h3>
+      <!-- Year slider removed: militaryComparison.csv is a snapshot, summaries are static -->
+      <div class="comparison-summary-grid" style="margin-top:10px; gap:12px; display:flex;">
+        <div id="summaryActiveVis" class="vis-container-comparison" style="min-height:120px; padding:8px;">
+          <div style="font-weight:700;color:#083a57;margin-bottom:6px">Active soldiers — NATO vs Russia</div>
+        </div>
+        <div id="summaryAircraftVis" class="vis-container-comparison" style="min-height:120px; padding:8px;">
+          <div style="font-weight:700;color:#083a57;margin-bottom:6px">Total aircraft — NATO vs Russia</div>
+        </div>
+        <div id="summaryShipsVis" class="vis-container-comparison" style="min-height:120px; padding:8px;">
+          <div style="font-weight:700;color:#083a57;margin-bottom:6px">Total military ships — NATO vs Russia</div>
+        </div>
+      </div>
+
+      <div class="comparison-grid">
+
+        <!-- Land metrics: one small chart per metric -->
+        <div class="vis-container-comparison" id="comparisonLandVis">
+          <div style="padding:8px; font-weight:700; color:#083a57;">Land Forces</div>
+          <div class="comparison-metrics-grid" id="comparisonLandGrid">
+            <div id="comparisonLand_Main_battle_tanks" class="comparison-metric-card"></div>
+            <div id="comparisonLand_Armored_vehicles" class="comparison-metric-card"></div>
+            <div id="comparisonLand_Self_propelled_artillery" class="comparison-metric-card"></div>
+          </div>
+        </div>
+
+        <!-- Air metrics -->
+        <div class="vis-container-comparison" id="comparisonAirVis">
+          <div style="padding:8px; font-weight:700; color:#083a57;">Air Forces</div>
+          <div class="comparison-metrics-grid" id="comparisonAirGrid">
+            <div id="comparisonAir_Fighters_interceptors" class="comparison-metric-card"></div>
+            <div id="comparisonAir_Transport_aircraft" class="comparison-metric-card"></div>
+            <div id="comparisonAir_Total_helicopters" class="comparison-metric-card"></div>
+          </div>
+        </div>
+
+        <!-- Sea metrics -->
+        <div class="vis-container-comparison" id="comparisonNavyVis">
+          <div style="padding:8px; font-weight:700; color:#083a57;">Naval Forces</div>
+          <div class="comparison-metrics-grid" id="comparisonNavyGrid">
+            <div id="comparisonSea_Aircraft_carriers" class="comparison-metric-card"></div>
+            <div id="comparisonSea_Destroyers" class="comparison-metric-card"></div>
+            <div id="comparisonSea_Submarines" class="comparison-metric-card"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="comparisonPersonnelAnnotations" class="chart-annotation" style="display: none; margin-top:12px;"></div>
+    </div>
+
+    <div class="comparison-item" style="margin-top:18px;">
+      <h3 class="nuclear-title">☢️ Nuclear Warheads — NATO vs Russia (Latest)</h3>
+      <div class="nuclear-subtitle">Chart shows estimated stockpiled warheads (deployed strategic + deployed nonstrategic + non‑deployed reserve). Retired warheads are shown in tooltip but not included in the total.</div>
+
+      <!-- NEW: side-by-side layout: chart on left, short summary callout on right -->
+      <div style="display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; margin-top:10px;">
+        <div id="comparisonNukesVis" class="vis-container-comparison-static nuclear-vis" style="flex:1 1 480px; min-width:300px;">
+          <!-- chart will be rendered here -->
+        </div>
+
+        <aside class="nuclear-callout" style="flex:0 0 320px; min-width:260px;">
+          <strong style="display:block; margin-bottom:8px;">Deterrence Summary</strong>
+          <p style="margin:0; line-height:1.45;">
+            Since Russia's 2022 invasion, NATO strengthened deterrence.<br>
+            Allies increased spending, forward deployments, and readiness.<br>
+            Interoperability and logistics amplify NATO's conventional advantage.<br>
+            Russia retains large nuclear and legacy conventional stocks.<br>
+            Collective NATO posture more likely to deter large invasions.
+          </p>
+        </aside>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="page-footer">
+    <p><strong>Sources:</strong> NATO Official Data, SIPRI, IISS Military Balance, estimations.</p>
+    <p style="margin:6px 0 0 0;font-size:0.95em;">
+      <a href="https://www.globalfirepower.com" target="_blank" rel="noopener">GlobalFirepower</a>,
+      <a href="https://www.statista.com/statistics/1293174/nato-russia-military-comparison/" target="_blank" rel="noopener">Statista (NATO vs Russia)</a>
+    </p>
+    <p style="margin:8px 0 0 0;font-size:0.9em;color:#667;">
+      Author: Hong Keat Gan — Date: 24/10/25
+    </p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
